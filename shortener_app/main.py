@@ -80,7 +80,6 @@ def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
     return get_admin_info(db_url)
 
 
-
 @app.get(
     "/admin/{secret_key}",
     name="administration info",
@@ -93,7 +92,6 @@ def get_url_info(
         return get_admin_info(db_url)
     else:
         raise_not_found(request)
-
 
 
 @app.delete("/admin/{secret_key}")

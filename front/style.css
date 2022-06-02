@@ -99,7 +99,7 @@ html{
 	border-radius: 50%;
 	overflow: hidden;
 	transition: 0.3s ease;
-    background-color: #fccb00;
+	background-color: #fccb00;
     color: black;
     display: flex;
     align-items: center;

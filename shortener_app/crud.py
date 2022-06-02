@@ -29,6 +29,7 @@ def get_db_url_by_secret_key(db: Session, secret_key: str) -> models.URL:
         .first()
     )
 
+
 def update_db_clicks(db: Session, db_url: schemas.URL) -> models.URL:
     db_url.clicks += 1
     db.commit()
@@ -43,3 +44,4 @@ def deactivate_db_url_by_secret_key(db: Session, secret_key: str) -> models.URL:
         db.commit()
         db.refresh(db_url)
     return db_url
+
