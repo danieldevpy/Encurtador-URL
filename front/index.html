@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Encurtador de LINK</title>
+<link rel="icon" href="img/image4.png">
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+<main>
+    <section id="sessao1">
+        <label class="amarelo-cor font-popp tamanho-one">ENCURTA LINK</label>
+        <p style="margin-top: -15px;" class="branco-cor font-second tamanho-second alinha-direita">ESCOLHA UM APELIDO PARA FACILITAR</p>
+        <button class="style-button font-second" onClick="encurtar();" type="button">ENCURTAR</button>
+        <input type="text" id="link" class="style-input">
+        <br>
+        <div class="awnser" id="awnser" style="visibility: hidden;">
+            <div class="container">
+                <div class="circulo"></div>
+                <label style="color:#fccb00;" class="font-second">URL:</label>
+                <p id="idurl" class="text-gerado"></p>
+             </div>
+             <div class="container">
+                <div class="circulo"></div>
+                <label style="color:#fccb00;" class="font-second">CLICKS:</label>
+                <p id="idclicks" class="text-gerado"></p>
+             </div>
+                <div class="container">
+                <div class="circulo"></div>
+                <label style="color:#fccb00;" class="font-second">ADMIN:</label>
+                <p id="idadmin" class="text-gerado"></p>
+             </div>
+        </div>
+        </section>
+        <div class="passar">
+            <a style="text-decoration: none; font-family: sans-serif;" href="#sessao2"><div class="circulo-dois">↓</div></a>
+        </div>
+    </main>
+    <section id="sessao2">
+        <header>
+            <label class="amarelo-cor font-popp tamanho-second">MOTIVOS PARA USAR NOSSO ENURTADOR</label>
+        </header>
+        <nav>
+            <article>
+                <div class="image"><img src="img/image1.png"></div>
+                <div class="texts">
+                    <span class="font-second">Fácil, Rapido e intuitivo</span>
+                    <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Domínio fácil e intuitivo de se memorizar e usar, tornando os seus links encurtados mais amigáveis para se compartilhar e facilitando o engajamento da sua audiência.</p>
+                </div>
+            </article>
+            <article>
+                <div class="image"><img src="img/image4.png"></div>
+                <div class="texts">
+                    <span class="font-second">Links Seguros</span>
+                    <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Todas as suas URLs encurtadas são criptografas por padrão, tornandos as mais seguras através de certificados de segurança (HTTPS) consolidados no mercado.</p>
+                </div>
+            </article>
+            <article>
+                <div class="image"><img src="img/image2.png"></div>
+                <div class="texts">
+                    <span class="font-second">Estatísticas</span>
+                    <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Verifique o total de cliques da sua url encurtada, edite ou exclua a sua url encurtada!</p>
+                </div>
+            </article>
+            <article>
+                <div class="image"><img src="img/image3.png"></div>
+                <div class="texts">
+                    <span class="font-second">Grátis</span>
+                    <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Crie quantos links encurtados quiser e compartilhe com quantas pessoas você quiser, de forma gratuita!!.</p>
+                </div>
+            </article>
+        </nav>
+    </section>
+<script> 	
+    function encurtar(){        
+        var input = document.querySelector("#link");
+        var link = input.value;
+        var verific = link.substr(0, 4)
+        if(verific == ""){
+            alert("Insira um link!")
+        }else if(verific == "http"){
+            var xhr = new XMLHttpRequest();
+            var url = 'http://127.0.0.1:8000/url';
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    var myurl = json.url
+                    var myclicks = json.clicks
+                    var myadmin = json.admin_url
+                    document.getElementById("awnser").style.visibility = "visible";
+                    document.getElementById("idurl").innerText=`${myurl}`;
+                    document.getElementById("idclicks").innerText=`${myclicks}`;
+                    document.getElementById("idadmin").innerText=`${myadmin}`;
+                }else if(xhr.status == 0){
+                    alert('Servidor Desligado');
+                    window.location.href='index.html';
+                }else if(xhr.status == 400){
+                    alert('O link está incorreto!')
+                }
+            };
+            var data = JSON.stringify({'target_url': `${link}`});
+            xhr.send(data);
+        }else{
+            alert("o link deve conter http!")
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2? família=Poppins:wght@600;800&display=swap');
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    background-color: black;
+}
+main{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+}
+#sessao1{
+    margin-top: 20%;
+    height: 80%;
+}
+html{
+    scroll-behavior: smooth;
+}
+.amarelo-cor{
+    color: #fccb00;
+}
+.branco-cor{
+    color: white;
+}
+.font-popp{
+    font-family: 'Poppins-ExtraBold', sans-serif;
+    font-weight: 800;
+}
+.tamanho-one{
+    font-size: 72px;
+}
+.font-second{
+    font-family: 'Poppins-SemiBold', sans-serif;
+    font-weight: 600;
+}
+.tamanho-second{
+    font-size: 20px;
+}
+.style-input{
+    height: 50px;
+    width: 500px;
+    background-color: #303030;
+    border: #fccb00 solid 1px;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    margin-top: 10%;
+}
+.style-input:-webkit-autofill {
+    background-color: #fccb00;
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    border-color: antiquewhite;
+}
+.style-button{
+    width: 100px;
+    height: 55px;
+    background-color: #fccb00;
+    color: black;
+    border:none;
+    border-radius: 8px;
+}
+.style-button:hover{
+    color: white;
+}
+.alinha-direita{
+    text-align: end;
+}
+.awnser{
+    margin-top: 50px;
+}
+.container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+}
+.circulo{
+    width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	overflow: hidden;
+	transition: 0.3s ease;
+    background-color: #fccb00;
+}
+.circulo:hover{
+	transform: rotateY(180deg);
+    background-color: #e6b802;
+}
+.passar{
+    display: flex;
+    justify-content: center;
+}
+.circulo-dois{
+    width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+	transition: 0.3s ease;
+    background-color: #fccb00;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 800;
+}
+.circulo-dois:hover{
+	transform: rotateY(180deg);
+    background-color: #e6b802;
+    color: white;
+}
+.text-gerado{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+#sessao2{
+    width: 100%;
+    height: 100vh;
+    
+}
+header{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+nav{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+article{
+    display: flex;
+    margin-bottom: 50px;
+}
+.texts{
+    width: 500px;
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+    margin-left: 20px;
+
+}
+.image img{
+    width: 200px;
+    border-radius: 50%;
+}
