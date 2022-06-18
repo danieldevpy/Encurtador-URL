@@ -2,6 +2,9 @@
 
 from pydantic import BaseModel
 
+class URLCustom(BaseModel):
+    url_custom: str
+
 
 class URLBase(BaseModel):
     target_url: str

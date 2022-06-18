@@ -4,8 +4,8 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     env_name: str = "Local"
-    base_url: str = "http://localhost:8000"
-    db_url: str = "sqlite:///./shortener.db"
+    base_url: str = "ec2-34-198-186-145.compute-1.amazonaws.com"
+    db_url: str = "postgres://ystvatsjikzagi:e0b4e33a0d687506bb6e04fd9f44e0c5efd08215f1c77331db6e227f28462aee@ec2-34-198-186-145.compute-1.amazonaws.com:5432/de6jsbsjhk0gh6"
 
     class Config:
         env_file = ".env"

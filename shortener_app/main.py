@@ -4,7 +4,7 @@ import secrets
 
 import validators
 from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from sqlalchemy.orm import Session
 from starlette.datastructures import URL
 from . import schemas, models, crud
@@ -12,6 +12,8 @@ from .database import SessionLocal, engine
 from .config import get_settings
 from fastapi.middleware.cors import CORSMiddleware
 
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 origins = ["*"]
 
@@ -23,6 +25,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.mount("/static", StaticFiles(directory="shortener_app/static"), name="static")
+
+templates = Jinja2Templates(directory="shortener_app/templates")
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -38,6 +44,8 @@ def get_db():
 def raise_not_found(request):
     message = f"URL '{request.url}' doesn't exist"
     raise HTTPException(status_code=404, detail=message)
+
+
 
 
 def get_admin_info(db_url: models.URL) -> schemas.URLInfo:
@@ -64,12 +72,13 @@ def forward_to_target_url(
         raise_not_found(request)
 
 
-def raise_bad_request(message):
-    raise HTTPException(status_code=400, detail=message)
+def raise_bad_request(message, code=400):
+    raise HTTPException(status_code=code, detail=message)
 
-@app.get("/")
-def read_root():
-    return "Welcome to the URL shortener API :)"
+
+@app.get("/", response_class=HTMLResponse)
+def read_root(request:Request):
+    return templates.TemplateResponse("index.html", {"request":request})
 
 
 @app.post("/url", response_model=schemas.URLInfo)
@@ -77,6 +86,16 @@ def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
     if not validators.url(url.target_url):
         raise_bad_request(message="Your provided URL is not valid")
     db_url = crud.create_db_url(db=db, url=url)
+    return get_admin_info(db_url)
+
+
+@app.post("/custom", response_model=schemas.URLInfo)
+def create_custom_url(url: schemas.URLBase, custom: schemas.URLCustom, db: Session = Depends(get_db)):
+    if crud.get_db_url_by_key(db= db, url_key=custom.url_custom):
+        raise_bad_request(code=555, message="URL EXIST")
+    elif not validators.url(url.target_url):
+        raise_bad_request(message="Your provided URL is not valid")
+    db_url = crud.create_custom_url(db=db, url=url, custom=custom.url_custom)
     return get_admin_info(db_url)
 
 

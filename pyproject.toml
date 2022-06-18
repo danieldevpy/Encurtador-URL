@@ -1,16 +1,19 @@
 [tool.poetry]
-name = "encurta_link"
+name = "encurt"
 version = "0.1.0"
-description = ""
+description = "encurtar links"
 authors = ["Daniel Fernandes <danielfernandes202@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10.4"
-fastapi = "0.75.0"
+python = "3.10.4"
 uvicorn = "0.17.6"
+fastapi = "0.75.0"
 SQLAlchemy = "1.4.32"
 python-dotenv = "0.19.2"
 validators = "0.18.2"
+psycopg2-binary = "^2.9.3"
+Jinja2 = "^3.1.2"
+
 
 [tool.poetry.dev-dependencies]
 
